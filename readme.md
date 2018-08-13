@@ -1,6 +1,6 @@
-# Fetch plugin for Craft CMS 3.x
+# Functions plugin for Craft CMS 3.x
 
-A field type to embed videos for Craft CMS
+Craft CMS plugin to provide some useful tools
 
 ## Requirements
 
@@ -16,8 +16,8 @@ To install the plugin, follow these instructions.
 
 2. Then tell Composer to load the plugin:
 
-        composer require supercool/fetch
+        composer require supercool/functions
 
-3. In the Control Panel, go to Settings → Plugins and click the “Install” button for Fetch.
+3. In the Control Panel, go to Settings → Plugins and click the “Install” button for Functions.
 
 Brought to you by [Supercool Ltd](http://www.supercooldesign.co.uk/)
