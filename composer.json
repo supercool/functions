@@ -1,0 +1,43 @@
+{
+    "name": "supercool/functions",
+    "description": "Craft CMS plugin to provide some useful tools",
+    "type": "craft-plugin",
+    "version": "2.0.0",
+    "keywords": [
+        "craft",
+        "cms",
+        "craftcms",
+        "craftcms3",
+        "craft-plugin",
+        "functions",
+        "supercool"
+    ],
+    "support": {
+        "docs": "https://github.com/supercool/functions/blob/master/README.md",
+        "issues": "https://github.com/supercool/functions/issues"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Supercool Ltd",
+            "homepage": "http://www.supercooldesign.co.uk/"
+        }
+    ],
+    "require": {
+        "craftcms/cms": "^3.0.0"
+    },
+    "autoload": {
+        "psr-4": {
+          "supercool\\functions\\": "src/"
+        }
+    },
+    "extra": {
+        "name": "Functions",
+        "handle": "functions",
+        "schemaVersion": "1.0.0",
+        "hasCpSettings": false,
+        "hasCpSection": false,
+        "changelogUrl": "https://raw.githubusercontent.com/supercool/functions/master/CHANGELOG.md",
+        "class": "supercool\\functions\\Functions"
+    }
+}
