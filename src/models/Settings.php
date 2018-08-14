@@ -1,26 +1,26 @@
 <?php
 
 /**
- * Fetch plugin for Craft CMS 3.x
+ * Functions plugin for Craft CMS 3.x
  *
- * A field type to embed videos for Craft CMS
+ * Craft CMS plugin to provide some useful tools
  *
  * @link      http://www.supercooldesign.co.uk/
  * @copyright Copyright (c) 2018 Supercool Ltd
  */
 
-namespace supercool\fetch\models;
+namespace supercool\functions\models;
 
 use craft\base\Model;
 
 class Settings extends Model
 {
-    public $embedlyApiKey;
+    public $nginxStaticCachePath;
 
     public function rules()
     {
         return [
-            [['embedlyApiKey'], 'string'],
+            [['nginxStaticCachePath'], 'string'],
         ];
     }
 }

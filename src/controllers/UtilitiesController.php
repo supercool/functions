@@ -13,6 +13,7 @@ namespace supercool\functions\controllers;
 
 use Craft;
 use craft\web\Controller as BaseController;
+use craft\helpers\FileHelper;
 
 use supercool\functions\Functions;
 
@@ -22,6 +23,19 @@ class UtilitiesController extends BaseController
     public function actionClearCaches()
     {
         Craft::$app->getTemplateCaches()->deleteAllCaches();
+
+        $plugin = Functions::$plugin;
+
+        // If nginx static cache path config exists clear that folder content
+        $nginxStaticCachePath = $plugin->getSettings()->nginxStaticCachePath;
+        if ( $nginxStaticCachePath )
+        {
+            FileHelper::clearDirectory($nginxStaticCachePath);
+            Craft::info("FastCGI Cache busted", __METHOD__);
+        }
+
+        // Run queues
+        Craft::$app->getQueue()->run();
 
         // return result as json
         return $this->asJson(['status' => true]);

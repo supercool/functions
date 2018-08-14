@@ -56,6 +56,15 @@ class Functions extends Plugin
 
 
     /**
+     * @inheritdoc
+     */
+    protected function createSettingsModel()
+    {
+        return new \supercool\functions\models\Settings();
+    }
+
+
+    /**
      * @return Entries
      */
     // public function getFetch()
