@@ -20,6 +20,9 @@ use supercool\functions\Functions;
 class UtilitiesController extends BaseController
 {
 
+    /**
+     * Clear templates caches
+     */
     public function actionClearCaches()
     {
         Craft::$app->getTemplateCaches()->deleteAllCaches();
@@ -36,6 +39,53 @@ class UtilitiesController extends BaseController
 
         // Run queues
         Craft::$app->getQueue()->run();
+
+        // return result as json
+        return $this->asJson(['status' => true]);
+    }
+
+
+    /**
+     * Warm caches using sitemap.xml
+     */
+    public function actionWarmCaches()
+    {
+        $sitemap = Craft::$app->getConfig()->general->siteUrl . 'sitemap.xml';
+
+        $sitemap = @simplexml_load_file($sitemap);
+
+        if ( !$sitemap )
+        {
+            return false;
+        }
+
+        $items = json_decode(json_encode($sitemap), TRUE);
+
+        $client = new \GuzzleHttp\Client();
+
+        foreach ($items['url'] as $item) {
+            try
+            {
+                $response = $client->get($item['loc']);
+            }
+            catch (\Exception $e)
+            {
+                Craft::info('Could not warm cache for: '.$e->getMessage(), __METHOD__);
+            }
+        }
+
+        return $this->asJson(['status' => true]);
+    }
+
+
+    /**
+     * Clear queues
+     */
+    public function actionClearQueues()
+    {
+        Craft::$app->getDb()->createCommand()
+            ->truncateTable('{{%queue}}')
+            ->execute();
 
         // return result as json
         return $this->asJson(['status' => true]);

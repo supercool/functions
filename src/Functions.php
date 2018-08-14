@@ -18,8 +18,12 @@ use craft\services\Plugins;
 use craft\services\Utilities;
 use craft\events\PluginEvent;
 use craft\events\RegisterComponentTypesEvent;
+use craft\events\RegisterCpNavItemsEvent;
+use craft\web\twig\variables\Cp;
 
 use yii\base\Event;
+
+use supercool\functions\assetbundles\FunctionsAsset;
 
 /**
  * @author    Supercool Ltd
@@ -50,7 +54,31 @@ class Functions extends Plugin
 
         Event::on(Utilities::class, Utilities::EVENT_REGISTER_UTILITY_TYPES, function(RegisterComponentTypesEvent $event) {
             $event->types[] = \supercool\functions\utilities\ClearCaches::class;
+            $event->types[] = \supercool\functions\utilities\ClearQueues::class;
         });
+
+        $request = Craft::$app->getRequest();
+
+        // Control panel request
+        if ($request->getIsCpRequest() && !$request->getIsConsoleRequest())
+        {
+
+            Event::on(Cp::class, Cp::EVENT_REGISTER_CP_NAV_ITEMS, function(RegisterCpNavItemsEvent $event) {
+                $event->navItems['functions-zendesk'] = [
+                    'label' => \Craft::t('functions', 'Support'),
+                    'url' => '#functions-zendesk',
+                    'fontIcon' => 'mail'
+                ];
+            });
+
+            $view = Craft::$app->getView();
+
+            $view->registerAssetBundle(FunctionsAsset::class);
+            $view->registerJs('new Functions.Zendesk();');
+
+        }
+
+
 
     }
 

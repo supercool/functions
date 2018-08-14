@@ -1,0 +1,9 @@
+<form id="sc-clear-queues" class="utility" method="post" accept-charset="UTF-8">
+    <input type="hidden" name="action" value="functions/utilities/clear-queues">
+    {{ csrfInput() }}
+
+    <div class="buttons first">
+        <input type="submit" class="btn submit" value="{{ "Clear queues"|t('functions') }}" />
+        <div class="utility-status"></div>
+    </div>
+</form>
