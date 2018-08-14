@@ -2,7 +2,7 @@
     "name": "supercool/functions",
     "description": "Craft CMS plugin to provide some useful tools",
     "type": "craft-plugin",
-    "version": "2.0.0",
+    "version": "1.0.0",
     "keywords": [
         "craft",
         "cms",
